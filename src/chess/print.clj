@@ -1,6 +1,7 @@
 (ns chess.print
   (:require [clojure.string :as s]
-            [chess.rules :as rules]))
+            [chess.rules :as rules]
+            [chess.board :refer :all]))
 
 (defn display-name [piece]
   (if-not piece
@@ -18,7 +19,7 @@
   (doseq [row (range 0 8)]
     (print "|")
     (doseq [col (range 0 8)]
-      (print (str " " (display-name (pm [col row])) " |")))
+      (print (str " " (display-name (piece-at pm [col row])) " |")))
     (print "\n"))
   (println (str "+" (s/join "+" (repeat 8 "----")) "+")))
 

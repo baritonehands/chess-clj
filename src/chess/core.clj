@@ -1,22 +1,14 @@
 (ns chess.core
-  (:require [clojure.string :as s]))
+  (:require [chess.rules :as rules]
+            [chess.board :as board]))
 
-(def specials [:rook :knight :bishop :queen
-               :king :bishop :knight :rook])
-
-(defn px [pm] (get (:pos pm) 0))
-(defn py [pm] (get (:pos pm) 1))
-
-(defn generate []
-  (letfn [(fill-row [color row pieces]
-            (map #(vector [%2 row]
-                          {:rank  %1
-                           :color color
-                           :pos [%2 row]})
-                 pieces
-                 (range 0 8)))]
-    (into {}
-          (concat (fill-row :black 1 (repeat :pawn))
-                  (fill-row :white 6 (repeat :pawn))
-                  (fill-row :black 0 specials)
-                  (fill-row :white 7 specials)))))
+(defn move [board from to]
+  (let [piece (board/piece-at board from)
+        moves (rules/move-set piece)]
+    (if (and (= (:player board) (:color piece))
+             (>= (compare to [0 0]) 0)
+             (<= (compare to [7 7]) 0)
+             (moves to)
+             (rules/path-clear? board from to))
+      (board/move board from to)
+      board)))
