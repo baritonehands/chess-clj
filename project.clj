@@ -3,7 +3,8 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.8.0"]]
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [io.aviso/pretty "0.1.33"]]
   :main ^:skip-aot chess.core
   :target-path "target/%s"
   :repl-options {:init-ns user}
