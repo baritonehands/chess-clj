@@ -32,8 +32,8 @@
 (defn empty-at? [board pos]
   (not (piece-at board pos)))
 
-(defn filter-pieces [board & more]
-  (let [by (->> (partition 2 more)
+(defn filter-pieces [board & pairs]
+  (let [by (->> (partition 2 pairs)
                 (map vec)
                 (into {}))
         include (fn [piece]
