@@ -1,36 +1,41 @@
 # chess
 
-FIXME: description
-
-## Installation
-
-Download from http://example.com/FIXME.
+An implementation of chess in Clojure.
 
 ## Usage
 
-FIXME: explanation
+All the interesting namespaces are included in the user.clj file. When running a REPL...
 
-    $ java -jar chess-0.1.0-standalone.jar [args]
+Print a board:
 
-## Options
+```clojure
+(print/board (board/generate))
+```
 
-FIXME: listing of options this app accepts.
+Print possible moves for a piece:
 
-## Examples
+```clojure
+(print/move-set :queen [4 4]) ; default last arg is :white
+(print/move-set :pawn [4 4] :black)
+```
 
-...
+Generate a check:
 
-### Bugs
+```clojure
+(def board (check-example))
+(print/board board)
+```
 
-...
+Generate a checkmate:
 
-### Any Other Sections
-### That You Think
-### Might be Useful
+```clojure
+(def board (checkmate-example))
+(print/board board)
+```
 
 ## License
 
-Copyright © 2016 FIXME
+Copyright © 2016 Brian Gregg
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
