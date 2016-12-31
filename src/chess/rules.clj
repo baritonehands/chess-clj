@@ -87,3 +87,24 @@
     (and (or (not target)
              (not= (:color piece) (:color target)))
          (every? #(board/empty-at? board %) (path from to)))))
+
+(defn valid-move? [board piece to]
+  (and
+    ((move-set piece) to)
+    (path-clear? board (:pos piece) to)))
+
+(defn valid-moves [board piece]
+  (filter (partial valid-move? board piece) board/all-moves))
+
+(defn in-check? [board color]
+  (let [king (first (board/filter-pieces board :color color :rank :king))
+        opp (board/filter-pieces board :color (if (= :white color) :black :white))
+        capturers (filter #(valid-move? board % (:pos king)) opp)]
+    (not (empty? capturers))))
+
+(defn checkmate? [board color]
+  (not-any? (fn [piece]
+              (->> (valid-moves board piece)
+                   (map #(in-check? (board/move board (:pos piece) %) color))
+                   (some false?)))
+            (board/filter-pieces board :color color)))
