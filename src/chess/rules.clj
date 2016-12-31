@@ -99,8 +99,8 @@
 (defn in-check? [board color]
   (let [king (first (board/filter-pieces board :color color :rank :king))
         opp (board/filter-pieces board :color (if (= :white color) :black :white))
-        capturers (filter #(valid-move? board % (:pos king)) opp)]
-    (not (empty? capturers))))
+        captors (filter #(valid-move? board % (:pos king)) opp)]
+    (not (empty? captors))))
 
 (defn checkmate? [board color]
   (not-any? (fn [piece]
