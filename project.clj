@@ -6,4 +6,5 @@
   :dependencies [[org.clojure/clojure "1.8.0"]]
   :main ^:skip-aot chess.core
   :target-path "target/%s"
+  :repl-options {:init-ns user}
   :profiles {:uberjar {:aot :all}})
